@@ -7,6 +7,7 @@ import { Book } from '../shared/book';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  url = 'https://angular.schule';
 
   books: Book[];
 
