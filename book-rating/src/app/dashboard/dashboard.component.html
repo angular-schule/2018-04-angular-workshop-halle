@@ -2,6 +2,11 @@
 
 <div *ngIf="books.length == 0">Keine Bücher vorhanden</div>
 
+
+<div>
+  <strong>{{ books.length }} Bücher vorhanden</strong>
+</div>
+
 <hr>
 
 <div *ngFor="let b of books; index as i; last as l">

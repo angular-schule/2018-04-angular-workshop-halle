@@ -9,5 +9,8 @@
       </h2>
     </div>
     <p>{{ book.description }}</p>
+    <div>
+      <span *ngFor="let x of getStarsArray()">*</span>
+    </div>
   </div>
 </div>
