@@ -1,4 +1,7 @@
-<br-book *ngFor="let b of books; trackBy: trackBook" [book]="b"></br-book>
+<br-book
+  *ngFor="let b of books; trackBy: trackBook"
+  (rated)="updateSortList($event)"
+  [book]="b"></br-book>
 
 <div *ngIf="books.length == 0">Keine Bücher vorhanden</div>
 

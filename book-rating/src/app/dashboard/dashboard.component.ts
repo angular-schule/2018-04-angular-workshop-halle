@@ -34,6 +34,10 @@ export class DashboardComponent implements OnInit {
     return item.isbn;
   }
 
+  updateSortList(book: Book) {
+    console.log(book);
+  }
+
 }
 
 
