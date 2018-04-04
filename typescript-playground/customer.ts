@@ -1,10 +1,6 @@
 export class Customer {
 
-    id: number;
-
-    constructor(id: number) {
-        this.id = id;
-    }
+    constructor(public id: number, private name: string) { }
 
     fooBar(foo: string): string {
         let self = this;
@@ -28,7 +24,15 @@ export class Customer {
 
         return `Hallo ${foo},
 mir geht es gut.`;
+    }
+
+    myMethod(arg: string | number) {
+        if (typeof arg === 'number') {
+            return arg;
+        }
 
     }
+
+
 }
 
