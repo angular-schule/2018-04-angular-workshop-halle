@@ -11,18 +11,33 @@ describe('BookComponent (simple)', () => {
   });
 
   it('should forward rateUp call to the RatingService', () => {
-    let ratingWasCalled = false;
-
     component.rs = {
-      rateUp: (book: Book) => {
-        ratingWasCalled = true;
-        return book;
-      }
+      rateUp: (book: Book) => book
     } as BookRatingService;
+
+    spyOn(component.rs, 'rateUp').and.callThrough();
+    component.rateUp();
+
+    expect(component.rs.rateUp).toHaveBeenCalled();
+  });
+
+  it('should throw rated event for rateUp', () => {
+    component.rs = {
+      rateUp: (book: Book) => book
+    } as BookRatingService;
+
+    component.book = {
+      isbn: '', title: '', description: '', rating: 5
+    };
+
+    let _book: Book;
+
+    component.rated.subscribe(b => {
+      _book = b;
+    });
 
     component.rateUp();
 
-    expect(ratingWasCalled).toBe(true);
-
+    expect(_book).toBe(component.book);
   });
 });
