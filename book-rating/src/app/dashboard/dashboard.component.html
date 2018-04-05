@@ -5,7 +5,6 @@
 
 <div *ngIf="books.length == 0">Keine Bücher vorhanden</div>
 
-
 <div>
   <strong>{{ books.length }} Bücher vorhanden</strong>
 </div>
@@ -20,4 +19,11 @@
 
 <hr>
 
-<a [href]="url">Zur Website</a>
+<a [href]="url">Zur Website</a> /
+{{ d | date:'medium' }}
+
+<hr>
+
+<pre>
+{{ books | json }}
+</pre>
