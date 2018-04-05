@@ -34,4 +34,12 @@ export class BookComponent implements OnInit {
     this.rated.emit(this.book);
   }
 
+  get rateUpAllowed() {
+    return this.rs.rateUpAllowed(this.book);
+  }
+
+  get rateDownAllowed() {
+    return this.rs.rateDownAllowed(this.book);
+  }
+
 }
