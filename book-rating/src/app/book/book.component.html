@@ -13,7 +13,7 @@
       <span *ngFor="let x of getStarsArray()">*</span>
     </div>
 
-    <button [disabled]="!rateUpAllowed" type="button" class="btn btn-secondary" (click)="rateUp()">+1</button>
+    <button [disabled]="!rateUpAllowed" type="button" class="btn btn-secondary testing-rate-up-btn" (click)="rateUp()">+1</button>
     <button [disabled]="!rateDownAllowed" type="button" class="btn btn-secondary" (click)="rateDown()">-1</button>
   </div>
 </div>

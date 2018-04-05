@@ -1,8 +1,28 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { BookComponent } from './book.component';
+import { Book } from '../shared/book';
+
+/*
+// Beispiel: Testkomponente für Integrationstest
+@Component({
+  selector: 'br-test',
+  template: `<br-book [book]="book" (rated)="onRated($event)"></br-book>`
+})
+class TestComponent {
+  book: Book = {
+    isbn: '',
+    title: '',
+    description: '',
+    rating: 5
+  };
+
+  onRated(book: Book) {
+  }
+}
+*/
 
 describe('BookComponent', () => {
   let component: BookComponent;
@@ -45,5 +65,14 @@ describe('BookComponent', () => {
     component.book = { ...component.book, rating: 5 };
     fixture.detectChanges();
     expect(ratingBox.nativeElement.textContent).toBe('5');
+  });
+
+  it('should call rateUp() when button is clicked', () => {
+    spyOn(component, 'rateUp').and.callThrough();
+
+    const rateUpBtn = fixture.debugElement.query(By.css('.testing-rate-up-btn'));
+    rateUpBtn.nativeElement.click();
+
+    expect(component.rateUp).toHaveBeenCalled();
   });
 });
