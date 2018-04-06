@@ -1,3 +1,16 @@
+<button class="btn btn-primary" (click)="addTimer()">Add timer</button>
+
+<div *ngFor="let t of timers">
+  {{ interval$ | async }}
+</div>
+
+
+{{ subject$ | async }}
+
+<hr>
+
+
+
 <form [formGroup]="bookForm" (ngSubmit)="submitForm()">
   <div class="form-group">
     <label for="isbn">ISBN</label>
@@ -26,5 +39,5 @@
 </form>
 
 <pre>
-{{ bookForm.value | json }}
+{{ results$ | async | json }}
 </pre>

@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable'; // v6: 'rxjs'
 import { of } from 'rxjs/observable/of'; // v6: 'rxjs/create'
+import { _throw } from 'rxjs/observable/throw'; // v6: 'rxjs/create'
 
 import { Book } from './book';
+import { catchError, delay } from 'rxjs/operators';
 
 @Injectable()
 export class BookStoreService {
@@ -13,7 +15,16 @@ export class BookStoreService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.api}/books`);
+    return this.http.get<Book[]>(`${this.api}/books`).pipe(
+      catchError(err => {
+        console.log('CATCH ERROR', err);
+        return _throw('Ein Fehler ist aufgetreten');
+      })
+    );
+  }
+
+  search(searchTerm: string): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.api}/books/search/${searchTerm}`);
   }
 
   getSingle(isbn: string): Observable<Book> {
@@ -21,7 +32,7 @@ export class BookStoreService {
   }
 
   getAllStaticObservable(): Observable<Book[]> {
-    return of(this.getAllStatic());
+    return of(this.getAllStatic()).pipe(delay(2000));
   }
 
   getAllStatic(): Book[] {

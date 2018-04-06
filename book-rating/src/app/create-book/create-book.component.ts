@@ -1,6 +1,12 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Book } from '../shared/book';
+import { interval } from 'rxjs/observable/interval';
+import { map, filter, debounceTime, distinctUntilChanged, buffer, switchMap } from 'rxjs/operators';
+import { BookStoreService } from '../shared/book-store.service';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'br-create-book',
@@ -11,6 +17,13 @@ export class CreateBookComponent implements OnInit {
 
   bookForm: FormGroup;
 
+  results$: Observable<Book[]>;
+
+  interval$ = interval(2000);
+  timers = [];
+
+  subject$ = new Subject<string>();
+
   // 1. Emitter anlegen ✅
   // 2. @Output() ✅
   // 2.5 Buch erzeugen ✅
@@ -19,7 +32,15 @@ export class CreateBookComponent implements OnInit {
 
   @Output() bookCreated = new EventEmitter<Book>();
 
-  constructor() { }
+
+  subscription1: Subscription;
+
+  addTimer() {
+    this.timers.push('');
+    this.subject$.next('fooo');
+  }
+
+  constructor(private bs: BookStoreService) { }
 
   ngOnInit() {
     this.bookForm = new FormGroup({
@@ -32,7 +53,17 @@ export class CreateBookComponent implements OnInit {
       description: new FormControl('')
     });
 
-    this.bookForm.valueChanges.subscribe(data => console.log(data));
+    this.results$ = this.bookForm.valueChanges.pipe(
+      map(value => value.isbn),
+      // filter(isbn => isbn.startsWith('1')),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      switchMap(searchTerm => this.bs.search(searchTerm))
+    );
+
+
+    this.subject$.subscribe(e => console.log(e));
+
   }
 
   submitForm() {
@@ -54,5 +85,6 @@ export class CreateBookComponent implements OnInit {
       });
     }
   }
+
 
 }

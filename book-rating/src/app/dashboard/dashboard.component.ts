@@ -18,7 +18,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.bs.getAll().subscribe(books => {
       this.books = books.sort((a, b) => b.rating - a.rating);
-    });
+    },
+    err => console.log('ERROR OCCURED', err)
+    );
   }
 
   trackBook(index: number, item: Book) {
