@@ -8,3 +8,4 @@ https://angular.schule/blog/2018-03-pure-immutable-operations
 https://hackernoon.com/using-observables-to-make-our-app-work-with-barcode-scanners-e8a673fba625
 http://rxmarbles.com
 https://medium.com/@benlesh/rxjs-dont-unsubscribe-6753ed4fda87
+http://reactive.how/
