@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BookComponent } from './book/book.component';
 import { CreateBookComponent } from './create-book/create-book.component';
+import { BookStoreService } from './shared/book-store.service';
+import { BookStoreMockService } from './shared/book-store.mock.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { CreateBookComponent } from './create-book/create-book.component';
     ReactiveFormsModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'de' }
+    { provide: LOCALE_ID, useValue: 'de' },
+    BookStoreService
   ],
   bootstrap: [AppComponent]
 })
