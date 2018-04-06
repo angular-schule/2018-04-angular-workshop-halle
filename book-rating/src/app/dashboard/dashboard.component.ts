@@ -11,12 +11,14 @@ export class DashboardComponent implements OnInit {
   url = 'https://angular.schule';
   d = new Date();
 
-  books: Book[];
+  books: Book[] = [];
 
   constructor(private bs: BookStoreService) {}
 
   ngOnInit() {
-    this.books = this.bs.getAllStatic();
+    this.bs.getAll().subscribe(books => {
+      this.books = books.sort((a, b) => b.rating - a.rating);
+    });
   }
 
   trackBook(index: number, item: Book) {
